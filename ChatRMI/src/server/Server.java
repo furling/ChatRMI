@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class Server {
     
-    private static final int PORT = 1099;
+    private static final int PORT = 1100;
     private static Registry registry;
 
     /* RMI Server
@@ -43,9 +43,9 @@ public class Server {
         ServerImpl s = new ServerImpl();
         
         registerObject(IConnect.class.getSimpleName(), s);
-        registerObject(IConnect.class.getSimpleName(), s);
-        registerObject(IConnect.class.getSimpleName(), s);
-        registerObject(IConnect.class.getSimpleName(), s);
+        registerObject(IWho.class.getSimpleName(), s);
+        registerObject(IBye.class.getSimpleName(), s);
+        registerObject(IMessage.class.getSimpleName(), s);
         
         Thread.sleep(5 * 60 * 1000);
     }

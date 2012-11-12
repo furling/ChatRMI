@@ -9,7 +9,7 @@ package api;
  * @author moro
  */
 public class User {
-    private static int seed = 0;
+    private static int seed = 1;
     
     private int id;
     private String name;
@@ -37,5 +37,10 @@ public class User {
     public User (String name) {
         this.name = name;
         this.id = this.getNextId();
+    }
+    
+    @Override
+    public String toString() {
+        return this.name + " (" + this.id + ")";
     }
 }

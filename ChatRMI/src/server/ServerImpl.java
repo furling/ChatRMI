@@ -35,12 +35,14 @@ public class ServerImpl extends UnicastRemoteObject implements IConnect, IBye, I
         User u = new User(name);
         users.put(u.getId(), u);
         
+        System.out.println("New user: " + u);
         return u.getId();
     }
     
     @Override
     public synchronized void disconnectUser(int userId) throws RemoteException {
         if(users.containsKey(userId)) {
+            System.out.println("Disconnect user: " + users.get(userId));
             users.remove(userId);
         }
     }
@@ -49,6 +51,7 @@ public class ServerImpl extends UnicastRemoteObject implements IConnect, IBye, I
     public synchronized ArrayList<String> displayUsers() throws RemoteException {
         ArrayList<String> temp = new ArrayList<String>();
         
+        System.out.println("Display users");
         for(User u : users.values()) {
             temp.add(u.getName());
         }
@@ -62,6 +65,7 @@ public class ServerImpl extends UnicastRemoteObject implements IConnect, IBye, I
             throw new RemoteException("Invalid user id.");
         }
         
+        System.out.println("Add message from: " + users.get(userId) + "\n>\t" + msg);
         messages.add(new Message(users.get(userId), msg));
     }
 
@@ -69,6 +73,7 @@ public class ServerImpl extends UnicastRemoteObject implements IConnect, IBye, I
     public synchronized ArrayList<String> getMessages(long timestamp) throws RemoteException {
         ArrayList<String> temp = new ArrayList<String>();
         
+        System.out.println("Get messages since: " + timestamp);
         for(Message m : messages) {
             if(m.getTimestamp() >= timestamp) {
                 temp.add(m.toString());
