@@ -19,10 +19,14 @@ public class Client {
     public static void main(String[] args) throws Exception {
         System.out.println("Start Client");
         registry = LocateRegistry.getRegistry(HOST, PORT);
-        Api remoteApi = (Api) registry.lookup(Api.class.getSimpleName());
+        
+        IConnect connect = (IConnect)registry.lookup(IConnect.class.getSimpleName());
+        IBye bye = (IBye)registry.lookup(IBye.class.getSimpleName());
+        IWho who = (IWho)registry.lookup(IWho.class.getSimpleName());
+        IMessage message = (IMessage)registry.lookup(IMessage.class.getSimpleName());
+        
         for (int i = 1; i <= 100; i++) {
-            System.out.println("counter = " +
-                remoteApi.incrementCounter(new Data(1)).getValue());
+            //System.out.println("counter = " + remoteApi.incrementCounter(new Data(1)).getValue());
             Thread.sleep(100);
         }
     }

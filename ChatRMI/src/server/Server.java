@@ -10,15 +10,22 @@ package server;
  */
 import java.rmi.*;
 import java.rmi.registry.*;
-
+import java.rmi.server.*;
 import api.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class Server {
+    
     private static final int PORT = 1099;
     private static Registry registry;
 
+    /* RMI Server
+     * We can do this somewhere else but hey ... it's just a TP :)
+     */
+    
     public static void startRegistry() throws RemoteException {
-        // create in server registry
         registry = java.rmi.registry.LocateRegistry.createRegistry(PORT);
     }
 
@@ -29,9 +36,17 @@ public class Server {
             remoteObj.getClass().getName() + "[" + remoteObj + "]");
     }
 
+    
+
     public static void main(String[] args) throws Exception {
         startRegistry();
-        registerObject(Api.class.getSimpleName(), new ApiImpl());
+        ServerImpl s = new ServerImpl();
+        
+        registerObject(IConnect.class.getSimpleName(), s);
+        registerObject(IConnect.class.getSimpleName(), s);
+        registerObject(IConnect.class.getSimpleName(), s);
+        registerObject(IConnect.class.getSimpleName(), s);
+        
         Thread.sleep(5 * 60 * 1000);
     }
 }
